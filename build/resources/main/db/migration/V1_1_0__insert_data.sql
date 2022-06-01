@@ -1,1 +1,0 @@
-insert into "user"("name", email) values ('John Wick', 'john@wick.com')
