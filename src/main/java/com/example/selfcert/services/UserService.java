@@ -21,11 +21,12 @@ public class UserService {
     }
 
     public User getUserInformation(Long id) {
-        System.out.println(id);
         User user = userRepository.findUser(id);
         Optional<Date> lastLoggedIn = idsRepository.getLastLoggedInTime(user.getEmail());
         if (lastLoggedIn.isPresent()) {
             user.setLastLoggedIn(lastLoggedIn.get());
+            final Date today = new Date();
+            user.setRecentlyActive(((today.getTime() - user.getLastLoggedIn().getTime()) / (1000 * 60 * 60 * 24)) < 3); // active in last 3 days
         }
         return user;
     }

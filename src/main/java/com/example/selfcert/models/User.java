@@ -16,6 +16,16 @@ public class User {
     private String email;
     @Transient
     private Date lastLoggedIn;
+    @Transient
+    private boolean recentlyActive;
+
+    public boolean isRecentlyActive() {
+        return recentlyActive;
+    }
+
+    public void setRecentlyActive(boolean recentlyActive) {
+        this.recentlyActive = recentlyActive;
+    }
 
     public Long getId() {
         return id;
