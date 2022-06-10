@@ -24,8 +24,26 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-tasks.named('test') {
+test {
     useJUnitPlatform()
+}
+
+task testUnit(type: Test, group: "verification") {
+    useJUnitPlatform() {
+        excludeTags "functional", "integration"
+    }
+}
+
+task testIntegration(type: Test, group: "verification") {
+    useJUnitPlatform() {
+        includeTags "integration"
+    }
+}
+
+task testFunctional(type: Test, group: "verification") {
+    useJUnitPlatform() {
+        includeTags "functional"
+    }
 }
 
 flyway {
