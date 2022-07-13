@@ -1,5 +1,8 @@
 package com.example.selfcert.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -8,6 +11,8 @@ import java.util.Date;
 
 @Entity
 @Table(name = "`user`")
+@Getter
+@Setter
 public class User {
 
     @Id
@@ -18,46 +23,5 @@ public class User {
     private Date lastLoggedIn;
     @Transient
     private boolean recentlyActive;
-
-    public boolean isRecentlyActive() {
-        return recentlyActive;
-    }
-
-    public void setRecentlyActive(boolean recentlyActive) {
-        this.recentlyActive = recentlyActive;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Date getLastLoggedIn() {
-        return lastLoggedIn;
-    }
-
-    public void setLastLoggedIn(Date lastLoggedIn) {
-        this.lastLoggedIn = lastLoggedIn;
-    }
-
 
 }
