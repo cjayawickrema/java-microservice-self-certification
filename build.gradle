@@ -15,18 +15,19 @@ repositories {
 
 dependencies {
     annotationProcessor "org.projectlombok:lombok"
-    implementation "org.projectlombok:lombok"
-    implementation 'org.flywaydb:flyway-core'
+    implementation "org.projectlombok:lombok" // automatic getters, setters etc
+    implementation 'org.flywaydb:flyway-core' // DB configuration management
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    implementation 'org.postgresql:postgresql'
+    implementation 'org.postgresql:postgresql' // db driver
     compileOnly 'org.springframework.boot:spring-boot-devtools'
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation "io.rest-assured:rest-assured:4.5.0"
-    testImplementation "org.testcontainers:testcontainers:1.17.3"
-    testImplementation "org.testcontainers:postgresql:1.17.3"
+    testImplementation "io.rest-assured:rest-assured:4.5.0" // to functional tests at REST controller
+    testImplementation "org.testcontainers:testcontainers:1.17.3" // test container core stuff
+    testImplementation "org.testcontainers:postgresql:1.17.3" // test container postgres module
+    testImplementation "org.assertj:assertj-core:3.23.1" // fluent API for assertions
 }
 
 test {

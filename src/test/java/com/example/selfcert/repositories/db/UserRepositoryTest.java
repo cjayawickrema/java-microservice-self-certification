@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @Tag("integration")
 class UserRepositoryTest extends IntegrationTest {
@@ -15,8 +16,16 @@ class UserRepositoryTest extends IntegrationTest {
     private UserRepository userRepository;
 
     @Test
-    void findUser() {
+    void shouldFindUserForValidId() {
         User user = userRepository.findUser(1L);
-        System.out.println(user);
+        assertThat(user).isNotNull();
+        assertThat(user.getEmail()).isEqualTo("john@wick.com");
+        assertThat(user.getName()).isEqualTo("John Wick");
+    }
+
+    @Test
+    void shouldReturnNullForInvalidId() {
+        User user = userRepository.findUser(-1L);
+        assertThat(user).isNull();
     }
 }

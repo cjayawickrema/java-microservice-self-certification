@@ -1,6 +1,6 @@
 package com.example.selfcert.framework;
 
-//import io.restassured.RestAssured;
+import io.restassured.RestAssured;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,7 +25,7 @@ public abstract class FunctionalTest {
 
     @Before
     public void setUp() {
-//        RestAssured.port = port;
+        RestAssured.port = port;
     }
 
 }
