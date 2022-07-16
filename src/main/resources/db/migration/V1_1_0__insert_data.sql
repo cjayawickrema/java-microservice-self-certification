@@ -1,1 +1,1 @@
-insert into "user"("name", email) values ('John Wick', 'john@wick.com')
+insert into "user"("name", email, "zone") values ('John Wick', 'john@wick.com', 'Asia/Colombo')

@@ -1,6 +1,6 @@
 package com.example.selfcert.services;
 
-import com.example.selfcert.repositories.api.IDSRepository;
+import com.example.selfcert.repositories.api.TimeServerGateway;
 import com.example.selfcert.repositories.db.UserRepository;
 import com.example.selfcert.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,18 +11,18 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    private IDSRepository idsRepository;
+    private TimeServerGateway timeServerGateway;
     private UserRepository userRepository;
 
     @Autowired
-    public UserService(IDSRepository idsRepository, UserRepository userRepository) {
-        this.idsRepository = idsRepository;
+    public UserService(TimeServerGateway timeServerGateway, UserRepository userRepository) {
+        this.timeServerGateway = timeServerGateway;
         this.userRepository = userRepository;
     }
 
     public User getUserInformation(Long id) {
         User user = userRepository.findUser(id);
-        Optional<Date> lastLoggedIn = idsRepository.getLastLoggedInTime(user.getEmail());
+        Optional<Date> lastLoggedIn = timeServerGateway.getDate(user.getZone());
         if (lastLoggedIn.isPresent()) {
             user.setLastLoggedIn(lastLoggedIn.get());
             final Date today = new Date();

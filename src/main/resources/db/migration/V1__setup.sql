@@ -1,6 +1,7 @@
 CREATE TABLE "user"
 (
     id    serial PRIMARY KEY,
-    email VARCHAR(50) UNIQUE  NOT NULL,
-    name  VARCHAR(255) UNIQUE NOT NULL
+    email VARCHAR(100) UNIQUE  NOT NULL,
+    name  VARCHAR(255) NOT NULL,
+    zone  VARCHAR(255) NOT NULL
 );
