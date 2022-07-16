@@ -22,12 +22,16 @@ public class UserService {
 
     public User getUserInformation(Long id) {
         User user = userRepository.findUser(id);
-        Optional<Date> lastLoggedIn = timeServerGateway.getDate(user.getZone());
-        if (lastLoggedIn.isPresent()) {
-            user.setLastLoggedIn(lastLoggedIn.get());
+
+        Optional<Date> userTime = timeServerGateway.getDate(user.getEmail());
+        if (userTime.isPresent()) {
+            user.setLastLoggedIn(userTime.get());
             final Date today = new Date();
             user.setRecentlyActive(((today.getTime() - user.getLastLoggedIn().getTime()) / (1000 * 60 * 60 * 24)) < 3); // active in last 3 days
+        } else {
+            user.setRecentlyActive(false);
         }
+
         return user;
     }
 }

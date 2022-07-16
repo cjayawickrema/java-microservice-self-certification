@@ -14,11 +14,16 @@ public class TimeServerGateway {
     private final static int EPOCH_MULTIPLIER = 1000;
     private final Random r = new Random();
 
-    public Optional<Date> getDate(String zone) {
-        ParameterizedTypeReference<HashMap<String, String>> responseType = new ParameterizedTypeReference<HashMap<String, String>>() {
-        };
-        RequestEntity<Void> request = RequestEntity.get("http://worldtimeapi.org/api/timezone/" + zone).accept(MediaType.APPLICATION_JSON).build();
-        Map<String, String> jsonDictionary = restTemplate.exchange(request, responseType).getBody();
-        return Optional.of(new Date(Long.parseLong(jsonDictionary.get("unixtime")) * EPOCH_MULTIPLIER - (r.nextInt(1000 * 60 * 60 * 24 * 5))));
+    public Optional<Date> getDate(String email) {
+        try {
+            ParameterizedTypeReference<HashMap<String, String>> responseType = new ParameterizedTypeReference<HashMap<String, String>>() {
+            };
+            RequestEntity<Void> request = RequestEntity.get("http://worldtimeapi.org/api/timezone/Asia/Colombo").accept(MediaType.APPLICATION_JSON).build();
+            Map<String, String> jsonDictionary = restTemplate.exchange(request, responseType).getBody();
+            return Optional.of(new Date(Long.parseLong(jsonDictionary.get("unixtime")) * EPOCH_MULTIPLIER - (r.nextInt(1000 * 60 * 60 * 24 * 5))));
+        } catch (Exception ex) {
+            System.err.println(ex); // TODO log this
+            return Optional.empty();
+        }
     }
 }

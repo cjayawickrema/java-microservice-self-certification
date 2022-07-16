@@ -15,9 +15,8 @@ class TimeServerGatewayTest extends IntegrationTest {
     private TimeServerGateway gateway;
 
     @Test
-    void shouldFetchDateForValidZone() {
-        Date date = gateway.getDate("Asia/Colombo").get();
-        assertThat(date).isNotNull();
+    void shouldFetchDateForValidZone()  {
+        assertThat(gateway.getDate("john@wick.com").get()).isNotNull();
     }
 
 }
