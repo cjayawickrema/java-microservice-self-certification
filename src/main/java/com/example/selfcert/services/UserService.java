@@ -1,11 +1,14 @@
 package com.example.selfcert.services;
 
+import com.example.selfcert.models.DaylightInfo;
 import com.example.selfcert.repositories.api.TimeServerGateway;
 import com.example.selfcert.repositories.db.UserRepository;
 import com.example.selfcert.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.Optional;
 
@@ -23,15 +26,21 @@ public class UserService {
     public User getUserInformation(Long id) {
         User user = userRepository.findUser(id);
 
-        Optional<Date> userTime = timeServerGateway.getDate(user.getEmail());
-        if (userTime.isPresent()) {
-            user.setLastLoggedIn(userTime.get());
-            final Date today = new Date();
-            user.setRecentlyActive(((today.getTime() - user.getLastLoggedIn().getTime()) / (1000 * 60 * 60 * 24)) < 3); // active in last 3 days
+        Optional<DaylightInfo> daylightInfo = timeServerGateway.getDaylighInfo(user.getLongitude(), user.getLatitude());
+        if (daylightInfo.isPresent()) {
+            user.setDarkTheme(!isDaytime(daylightInfo.get()));
         } else {
-            user.setRecentlyActive(false);
+            user.setDarkTheme(false);
         }
 
         return user;
     }
+
+    private boolean isDaytime(DaylightInfo daylightInfo) {
+        LocalTime now = LocalTime.now(ZoneOffset.UTC);
+        return now.isAfter(daylightInfo.getSunrise()) && now.isBefore(daylightInfo.getSunset());
+    }
 }
+
+
+// 5pm

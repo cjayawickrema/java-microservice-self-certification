@@ -1,11 +1,14 @@
 package com.example.selfcert.repositories.api;
 
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
+import com.example.selfcert.models.DaylightInfo;
+import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Repository
@@ -14,16 +17,28 @@ public class TimeServerGateway {
     private final static int EPOCH_MULTIPLIER = 1000;
     private final Random r = new Random();
 
-    public Optional<Date> getDate(String email) {
+
+    public Optional<DaylightInfo> getDaylighInfo(float lng, float lat) {
         try {
-            ParameterizedTypeReference<HashMap<String, String>> responseType = new ParameterizedTypeReference<HashMap<String, String>>() {
-            };
-            RequestEntity<Void> request = RequestEntity.get("http://worldtimeapi.org/api/timezone/Asia/Colombo").accept(MediaType.APPLICATION_JSON).build();
-            Map<String, String> jsonDictionary = restTemplate.exchange(request, responseType).getBody();
-            return Optional.of(new Date(Long.parseLong(jsonDictionary.get("unixtime")) * EPOCH_MULTIPLIER - (r.nextInt(1000 * 60 * 60 * 24 * 5))));
+            String url = String.format("https://api.sunrise-sunset.org/json?lat=%f&lng=%f&date=today", lat, lng);
+            System.out.println("calling URL: " + url);
+            ResponseEntity<JsonNode> response =
+                    restTemplate.exchange(url, HttpMethod.GET, null, JsonNode.class);
+            JsonNode map = response.getBody().get("results");
+            LocalTime sunrise = parseLocalTime(map.get("sunrise").asText());
+            LocalTime sunset = parseLocalTime(map.get("sunset").asText());
+            return Optional.of(new DaylightInfo(sunrise, sunset));
         } catch (Exception ex) {
+            ex.printStackTrace();
             System.err.println(ex); // TODO log this
             return Optional.empty();
         }
     }
+
+    private LocalTime parseLocalTime(String localTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm:ss a");
+        LocalTime time = LocalTime.parse(localTime, formatter);
+        return time;
+    }
+
 }

@@ -1,1 +1,1 @@
-insert into "user"("name", email) values ('John Wick', 'john@wick.com')
+insert into "user"("name", email, longitude, latitude) values ('John Wick', 'john@wick.com', 79.938356, 6.837265)

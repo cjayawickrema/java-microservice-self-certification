@@ -23,6 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.3' // json parsing
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation "io.rest-assured:rest-assured:4.5.0" // to functional tests at REST controller
     testImplementation "org.testcontainers:testcontainers:1.17.3" // test container core stuff

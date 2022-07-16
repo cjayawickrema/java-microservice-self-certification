@@ -19,9 +19,9 @@ public class User {
     private Long id;
     private String name;
     private String email;
+    private float longitude;
+    private float latitude;
     @Transient
-    private Date lastLoggedIn;
-    @Transient
-    private boolean recentlyActive;
+    private boolean darkTheme;
 
 }
