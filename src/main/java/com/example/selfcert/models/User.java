@@ -1,5 +1,6 @@
 package com.example.selfcert.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ import java.util.Date;
 @Table(name = "`user`")
 @Getter
 @Setter
+@AllArgsConstructor
 public class User {
 
     @Id

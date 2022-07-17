@@ -17,7 +17,6 @@ public class TimeServerGateway {
     private final static int EPOCH_MULTIPLIER = 1000;
     private final Random r = new Random();
 
-
     public Optional<DaylightInfo> getDaylighInfo(float lng, float lat) {
         try {
             String url = String.format("https://api.sunrise-sunset.org/json?lat=%f&lng=%f&date=today", lat, lng);

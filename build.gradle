@@ -29,6 +29,7 @@ dependencies {
     testImplementation "org.testcontainers:testcontainers:1.17.3" // test container core stuff
     testImplementation "org.testcontainers:postgresql:1.17.3" // test container postgres module
     testImplementation "org.assertj:assertj-core:3.23.1" // fluent API for assertions
+    testImplementation "org.mockito:mockito-core:3.+"
 }
 
 test {
