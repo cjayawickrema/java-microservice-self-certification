@@ -17,7 +17,7 @@ public class TimeServerGateway {
 
     public Optional<DaylightInfo> getDaylighInfo(float lng, float lat) {
         try {
-            String url = String.format("https://api.sunrise-sunset.org/json?lat=%f&lng=%f&date=today", lat, lng); // TODO externalize url
+            String url = String.format("http://api.sunrise-sunset.org/json?lat=%f&lng=%f&date=today", lat, lng); // TODO externalize url
             System.out.println("calling URL: " + url); // TODO configure loggers
             ResponseEntity<JsonNode> response =
                     restTemplate.exchange(url, HttpMethod.GET, null, JsonNode.class);
