@@ -10,7 +10,7 @@ User Controller --> User Service --> Time Server Gateway --> api.sunrise-sunset.
                                  --> User DB Connector   --> Postgres Database
 ```
 
-##Pre-requsites to run or test
+## Pre-requisites to run or test
 1. Install Docker Desktop or Docker Engine depending on your OS
 2. Make sure Docker daemon is running
 3. Make sure Java 11+ and Gradle 7.4+ is properly setup
